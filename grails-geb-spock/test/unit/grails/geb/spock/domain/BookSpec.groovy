@@ -1,0 +1,40 @@
+package grails.geb.spock.domain
+
+import grails.plugin.spock.UnitSpec
+import grails.geb.spock.Book
+import grails.geb.spock.Author
+
+class BookSpec extends UnitSpec   {
+    def "find book by title"() {
+          setup:
+          mockDomain(Book)
+          mockDomain(Author)
+
+          when:
+          new Book(title: title,author:new Author(firstname:"John",lastname:"Doe").save()).save()
+
+          then:
+          Book.findByTitle(title) != null
+
+          where:
+           title = "Nice book"
+   }
+
+  def "title not longer than 20 characters"() {
+          setup:
+          mockForConstraintsTests(Book)
+          mockDomain(Author)
+
+          when:
+          def book =new Book(title:title, author:new Author(firstname:"John",lastname:"Doe").save())
+          book.validate()
+
+          then:
+          book.hasErrors()
+
+          where:
+          title="123456789012345678901"
+   }
+
+   
+}
