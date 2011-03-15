@@ -3,52 +3,58 @@ package grails.geb.spock.domain
 import grails.plugin.spock.UnitSpec
 import grails.geb.spock.Author
 
-class AuthorSpec extends UnitSpec  {
+class AuthorSpec extends UnitSpec {
   def "find author by firstname and lastname"() {
-          setup:
-          mockDomain(Author)
+    setup:
+    mockDomain(Author)
 
-          when:
-          new Author(firstname: firstname,lastname:lastname).save()
+    when:
+    new Author(firstname: firstname, lastname: lastname).save()
 
-          then:
-          Author.findByFirstnameAndLastname(firstname,lastname) != null
+    then:
+    Author.findByFirstnameAndLastname(firstname, lastname) != null
 
-          where:
-          firstname = "John"
-          lastname = "Doe"
-   }
+    where:
+    firstname = "John"
+    lastname = "Doe"
+  }
 
-   def "firstname not longer than 20 characters"() {
-          setup:
-          mockForConstraintsTests(Author)
+  def "firstname constraints"() {
+    setup:
+    mockForConstraintsTests(Author)
 
-          when:
-          def author =new Author(firstname: firstname,lastname:lastname)
-          author.validate()
+    when:
+    def author = new Author(firstname: firstname, lastname: "Doe")
+    author.validate()
 
-          then:
-          author.hasErrors()
+    then:
+    author.hasErrors() == !valid
 
-          where:
-          firstname = "123456789012345678901"
-          lastname = "Doe"
-   }
+    where:
 
-  def "lastname not longer than 20 characters"() {
-          setup:
-          mockForConstraintsTests(Author)
+    firstname | valid
+    "123456789012345678901" | false //Firstname must not have more than 20 characters 
+    "12345678901234567890" | true
+    "" | false //Firstname must not be blank
 
-          when:
-          def author =new Author(firstname: firstname,lastname:lastname)
-          author.validate()
+  }
 
-          then:
-          author.hasErrors()
+  def "lastname constraints"() {
+    setup:
+    mockForConstraintsTests(Author)
 
-          where:
-          firstname = "John"
-          lastname = "123456789012345678901"
-   }
+    when:
+    def author = new Author(firstname: "John", lastname: lastname)
+    author.validate()
+
+    then:
+    author.hasErrors() == !valid
+
+    where:
+    lastname | valid
+    "123456789012345678901" | false
+    "12345678901234567890" | true
+    "" | false
+  }
 
 }
