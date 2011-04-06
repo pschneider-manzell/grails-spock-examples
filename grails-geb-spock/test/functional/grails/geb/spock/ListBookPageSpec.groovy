@@ -45,7 +45,7 @@ class ListBookPageSpec extends GebSpec {
 
     then:
     def firstBookId = $("td").find("a")
-    firstBookId.text() == "2"
+    firstBookId.text() != "1"
   }
 
   def "sorting of books by title"() {
@@ -83,6 +83,6 @@ class ListBookPageSpec extends GebSpec {
 
     then:
     def pageTitle = $("title")
-    pageTitle.text() == "Create book"
+    pageTitle.text() == "Create Book"
   }
 }

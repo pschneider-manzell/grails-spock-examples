@@ -9,6 +9,9 @@ class BootStrap {
 
       Author robertMartin = new Author(firstname:"Robert",lastname:"Martin").save(failOnError:true)
       Book cleanCode = new Book(title:"Clean Code",author:robertMartin).save(failOnError:true)
+
+      Author joshuaBloch = new Author(firstname:"Joshua",lastname:"Bloch").save(failOnError:true)
+      Book effectiveJava = new Book(title:"Effective Java",author:joshuaBloch).save(failOnError:true)
     }
     def destroy = {
 
