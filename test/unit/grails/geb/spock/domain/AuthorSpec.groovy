@@ -2,8 +2,11 @@ package grails.geb.spock.domain
 
 import grails.plugin.spock.UnitSpec
 import grails.geb.spock.Author
+import grails.test.mixin.TestFor
+import spock.lang.Specification
 
-class AuthorSpec extends UnitSpec {
+@TestFor(Author)
+class AuthorSpec extends Specification {
   def "find author by firstname and lastname"() {
     setup:
     mockDomain(Author)

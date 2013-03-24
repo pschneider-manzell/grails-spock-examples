@@ -1,10 +1,12 @@
 package grails.geb.spock.domain
 
-import grails.plugin.spock.UnitSpec
 import grails.geb.spock.Book
 import grails.geb.spock.Author
+import grails.test.mixin.TestFor
+import spock.lang.Specification
 
-class BookSpec extends UnitSpec   {
+@TestFor(Book)
+class BookSpec extends Specification   {
     def "find book by title"() {
           setup:
           mockDomain(Book)
