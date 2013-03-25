@@ -1,6 +1,8 @@
 Grails Spock Examples
 =====================
 
+Build status: [![Build Status](https://travis-ci.org/pschneider-manzell/grails-spock-examples.png?branch=1_3_7)](https://travis-ci.org/pschneider-manzell/grails-spock-examples)
+
 You can find detailed descriptions in the [Wiki](https://wiki.github.com/pschneider-manzell/grails-spock-examples/)
 
 Grails 1.3.7 project with tests based on Spock.
