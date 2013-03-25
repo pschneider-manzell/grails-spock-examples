@@ -8,4 +8,4 @@ before_install:
  - sudo apt-get update
  - sudo apt-get install grails-1.3.7 # or the grails version.
 
-script: grails test-app
+script: grails test-app unit:spock integration:spock
