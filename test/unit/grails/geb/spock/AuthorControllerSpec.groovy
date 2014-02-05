@@ -90,7 +90,7 @@ class AuthorControllerSpec extends Specification {
         then:
         view.endsWith "create"
         model.authorInstance.firstname == firstname
-        model.authorInstance.lastname == lastname
+        model.authorInstance.lastname == null
 
         where:
         firstname = "John"

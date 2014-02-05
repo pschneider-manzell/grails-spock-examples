@@ -1,88 +1,65 @@
 package grails.geb.spock
 
-import grails.plugin.geb.GebSpec
+import geb.spock.GebReportingSpec
+import grails.geb.page.CreateBookPage
+import grails.geb.page.IndexPage
+import grails.geb.page.ListBooksPage
 
 /**
  * Peter Schneider-Manzell
  */
-class ListBookPageSpec extends GebSpec {
+class ListBookPageSpec extends GebReportingSpec {
 
   def "redirect to list books page"() {
     when:
-    go "book/"
+    to ListBooksPage
+
     then:
-    def firstHeader = $("h1")
-    firstHeader.text() == "Book List"
+    at ListBooksPage
   }
 
   def "titles of table header"() {
     when:
-    go "book/list"
+    ListBooksPage listBooksPage  = to ListBooksPage
     then:
     //First header is sortable, html: <th...><a...>Id</a></th>....
-    def firstTableHeader = $("th",0).find("a")
-    firstTableHeader.text() == "Id"
+    listBooksPage.headerTitle.text() == "Title"
 
-    //Second header is also sortable, but you can obmit the lookup for the <a...> tag, by using "text()", you get the textual content
-    def secondTableHeader = $("th",1)
-    secondTableHeader.text() == "Title"
-
-    def thirdTableHeader = $("th",2)
-    thirdTableHeader.text() == "Author"
-  }
-
-  def "sorting of books by id"() {
-    when:
-    go "book/list"
-    //Click first time (books should then sorted by id ascending)
-    def firstTableHeader = $("th",0).find("a")
-    firstTableHeader.click()
-
-    //Click second time to sort books by id descending
-    firstTableHeader = $("th",0).find("a")
-    firstTableHeader.click()
-
-
-    then:
-    def firstBookId = $("td").find("a")
-    firstBookId.text() != "1"
+    //Second header is also sortable, but you can omit the lookup for the <a...> tag, by using "text()", you get the textual content
+     listBooksPage.headerAuthor.text() == "Author"
   }
 
   def "sorting of books by title"() {
     when:
-    go "book/list"
-    //Click first time (books should then be sorted by title ascending)
-    def firstTableHeader = $("th",1).find("a")
-    firstTableHeader.click()
+    ListBooksPage listBooksPage  = to ListBooksPage
+    //Click first time (books should then sorted by title ascending)
+    listBooksPage.headerTitle.click()
 
+    //Click second time to sort books by title descending
+      listBooksPage.headerTitle.click()
 
 
     then:
-    def firstBookTitle = $("td",1)
-    firstBookTitle.text() == "Clean Code"
+    listBooksPage.bookResult(0).title.text() == "Grails in Action"
   }
+
 
   def "click on home link"() {
     when:
-    go "book/list"
+    ListBooksPage listBooksPage  = to ListBooksPage
     //Click first time (books should then be sorted by title ascending)
-    def homeLink = $("a",text:"Home")
-    homeLink.click()
+    listBooksPage.homeLink.click()
 
     then:
-    def pageTitle = $("title")
-    pageTitle.text() == "Welcome to Grails"
+    at IndexPage
   }
 
   def "click on create link"() {
     when:
-    go "book/list"
-    //Click first time (books should then be sorted by title ascending)
-    def homeLink = $("a",text:"New Book")
-    homeLink.click()
+    ListBooksPage listBooksPage  = to ListBooksPage
+    listBooksPage.createBookLink.click()
 
     then:
-    def pageTitle = $("title")
-    pageTitle.text() == "Create Book"
+    at CreateBookPage
   }
 }

@@ -1,6 +1,5 @@
 package grails.geb.spock.domain
 
-import grails.plugin.spock.UnitSpec
 import grails.geb.spock.Author
 import grails.test.mixin.TestFor
 import spock.lang.Specification
@@ -27,7 +26,10 @@ class AuthorSpec extends Specification {
     mockForConstraintsTests(Author)
 
     when:
-    def author = new Author(firstname: firstname, lastname: "Doe")
+    def author = new Author(lastname: "Doe")
+    //Assignment of possible NULL values must be done via property assignment because assignment via map and constructor now leads to NULL if String is ""
+    //See http://grails.org/doc/latest/ref/Constraints/nullable.html for more details
+    author.firstname = firstname
     author.validate()
 
     then:
@@ -47,7 +49,10 @@ class AuthorSpec extends Specification {
     mockForConstraintsTests(Author)
 
     when:
-    def author = new Author(firstname: "John", lastname: lastname)
+    def author = new Author(firstname: "John")
+      //Assignment of possible NULL values must be done via property assignment because assignment via map and constructor now leads to NULL if String is ""
+      //See http://grails.org/doc/latest/ref/Constraints/nullable.html for more details
+    author.lastname = lastname
     author.validate()
 
     then:

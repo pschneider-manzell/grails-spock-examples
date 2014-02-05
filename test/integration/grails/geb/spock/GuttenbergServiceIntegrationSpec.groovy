@@ -1,6 +1,6 @@
 package grails.geb.spock
 
-import grails.plugin.spock.IntegrationSpec
+import grails.test.spock.IntegrationSpec
 
 /**
  * Peter Schneider-Manzell

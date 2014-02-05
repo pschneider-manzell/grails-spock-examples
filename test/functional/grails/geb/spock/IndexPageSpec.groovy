@@ -1,19 +1,21 @@
 package grails.geb.spock
 
-import grails.plugin.geb.GebSpec
+import geb.spock.GebReportingSpec
+import grails.geb.page.IndexPage
 
 /**
  * Peter Schneider-Manzell
  */
-class IndexPageSpec extends GebSpec {
+class IndexPageSpec extends GebReportingSpec {
 
 
   def "test header in page content section of index page"() {
+
         when:
-        go ""
+        IndexPage indexPage = to IndexPage
+
         then:
-        def pageContentDiv = $("div",id:"pageBody")
-        def firstHeader = pageContentDiv.find("h1")
-        firstHeader.text() == "Welcome to examples how to use spock and geb"
+        at IndexPage
+        indexPage.pageContentHeader.text() == "Welcome to examples how to use spock and geb"
     }
 }

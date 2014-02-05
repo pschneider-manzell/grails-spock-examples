@@ -1,11 +1,11 @@
 package grails.geb.spock
 
-import grails.plugin.spock.ControllerSpec
+import geb.spock.GebReportingSpec
 
 /**
  * Peter Schneider-Manzell
  */
-abstract class ExtendedControllerSpec extends ControllerSpec {
+abstract class ExtendedControllerSpec extends GebReportingSpec {
 
   //Mocking i18n, see http://jira.codehaus.org/browse/GRAILS-5926 for more details
 

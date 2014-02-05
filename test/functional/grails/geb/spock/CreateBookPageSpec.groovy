@@ -1,53 +1,58 @@
 package grails.geb.spock
 
-import grails.plugin.geb.GebSpec
+import geb.spock.GebReportingSpec
+import grails.geb.page.CreateBookPage
+import grails.geb.page.ShowBookPage
 
 /**
  * Peter Schneider-Manzell
  */
-class CreateBookPageSpec extends GebSpec {
+class CreateBookPageSpec extends GebReportingSpec {
 
-  def "open create book page"() {
-    when:
-    go "book/create"
-    
-    then:
-    def pageTitle = $("title")
-    pageTitle.text() == "Create Book"
-  }
+    def "open create book page"() {
+        when:
+        to CreateBookPage
 
-  def "try to create book without title"() {
-    when:
-    go "book/create"
-    $("form").find("input",name:"create").click()
-    
-    then:
-    def pageTitle = $("title")
-    pageTitle.text() == "Create Book"
+        then:
+        at CreateBookPage
+    }
 
-    $("li").text() == "Property [title] of class [class grails.geb.spock.Book] cannot be blank"
-  }
+    def "try to create book without title"() {
 
-  def "try to create book with long title"() {
-    when:
-    go "book/create"
-    $("input",name:"title").value("123456789012345678901")    
+        given:
+        CreateBookPage createBookPage = to CreateBookPage
 
-    then:
-    //Scaffolding adds an attribute "maxlength" to the textfield, which prevents a value longer than 20 characters
-    $("input",name:"title").value() == "12345678901234567890" 
-  }
+        when:
+        createBookPage.createButton.click()
 
-  def "create book"(){
+        then:
+        //Scaffolding adds an attribute "required" to the textfield, which prevents submitting the form without setting a value
+        at CreateBookPage
+    }
 
-    when:
-    go "book/create"
-    $("input",name:"title").value("Nice title")
-    $("form").find("input",name:"create").click()
+    def "try to create book with long title"() {
+        given:
+        CreateBookPage createBookPage = to CreateBookPage
 
-    then:
-    $("title").text() == "Show Book"
-    $("div",class:"message").text()=="Book 4 created"
-  }
+        when:
+        createBookPage.inputTtitle.value("123456789012345678901")
+
+        then:
+        //Scaffolding adds an attribute "maxlength" to the textfield, which prevents a value longer than 20 characters
+        createBookPage.inputTtitle.value() == "12345678901234567890"
+    }
+
+    def "create book"() {
+        given:
+        CreateBookPage createBookPage = to CreateBookPage
+
+        when:
+        createBookPage.inputTtitle.value("Nice title")
+        createBookPage.createButton.click()
+
+        then:
+        at ShowBookPage
+        message == "Book 4 created"
+    }
 
 }
