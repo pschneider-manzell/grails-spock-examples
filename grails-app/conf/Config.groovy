@@ -89,6 +89,31 @@ log4j = {
     warn   'org.mortbay.log'
 }
 
+//Based on http://snipplr.com/view/63391/grails-log4j-for-different-environments--an-example/
+environments {
+    test {
+        log4j = {
+            appenders {
+                file name: 'grailsfile', file: 'target/grails.log'
+                file name: 'rootlog', file: 'target/root.log'
+                file name: 'testfile', file: 'target/test.log',
+                        layout: pattern(conversionPattern: "[%d{HH:mm:ss:SSS}] %-5p %c{2}: %m%n")
+            }
+            root { error 'stdout', 'rootlog' }
+            info additivity: false, grailsfile: 'org.codehaus.groovy.grails.commons'
+            all additivity: false, testfile: [
+                    'grails.app.controllers.grails.geb.spock',
+                    'grails.app.domain.grails.geb.spock',
+                    'grails.app.services.grails.geb.spock',
+                    'grails.app.taglib.grails.geb.spock',
+                    'grails.app.conf.grails.geb.spock',
+                    'grails.app.filters.grails.geb.spock'
+            ]
+
+        }
+    }
+}
+
 // Uncomment and edit the following lines to start using Grails encoding & escaping improvements
 
 /* remove this line 
