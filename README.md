@@ -32,6 +32,5 @@ Functional tests
 Running the tests
 ------------------
 1. Checkout the source
-2. Make sure you have Grails 2.3.5 installed
-3. run grails test-app unit:spock to execute all unit tests based on spock
-4. run grails test-app integration:spock to execute all integration tests based on spock
+3. run grailsw test-app unit:spock to execute all unit tests based on spock
+4. run grailsw test-app integration:spock to execute all integration tests based on spock
