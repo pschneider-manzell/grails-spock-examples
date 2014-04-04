@@ -75,7 +75,7 @@ grails.project.dependency.resolution = {
         build ':tomcat:7.0.52.1'
 		runtime ':hibernate:3.6.10.10'
         runtime ":jquery:1.9.1"
-        runtime ":resources:1.2.1"
+        runtime ":resources:1.2.7"
 
         // Uncomment these (or add new ones) to enable additional resources cap$
         //runtime ":zipped-resources:1.0"

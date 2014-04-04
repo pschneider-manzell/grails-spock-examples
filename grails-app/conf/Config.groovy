@@ -50,6 +50,7 @@ grails.spring.bean.packages = []
 
 // request parameters to mask when logging exceptions
 grails.exceptionresolver.params.exclude = ['password']
+grails.resources.adhoc.excludes = ['**/WEB-INF/**','**/META-INF/**']
 
 // set per-environment serverURL stem for creating absolute links
 environments {
