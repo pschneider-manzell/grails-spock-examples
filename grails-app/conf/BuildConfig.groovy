@@ -1,3 +1,4 @@
+grails.servlet.version = "3.0" 
 grails.project.class.dir = "target/classes"
 grails.project.test.class.dir = "target/test-classes"
 grails.project.test.reports.dir = "target/test-reports"
@@ -6,29 +7,27 @@ grails.project.target.level = 1.6
 grails.project.source.level = 1.6
 
 grails.project.fork = [
-        // configure settings for compilation JVM, note that if you alter the Groovy version forked compilation is required
-        //  compile: [maxMemory: 256, minMemory: 64, debug: false, maxPerm: 256, daemon:true],
+    // configure settings for compilation JVM, note that if you alter the Groovy version forked compilation is required
+    //  compile: [maxMemory: 256, minMemory: 64, debug: false, maxPerm: 256, daemon:true],
 
-        // configure settings for the test-app JVM, uses the daemon by default
-
-        //test: [maxMemory: 768, minMemory: 64, debug: false, maxPerm: 256, forkReserve:false],
-        test: false,
-        // configure settings for the run-app JVM
-        run: [maxMemory: 768, minMemory: 64, debug: false, maxPerm: 256, forkReserve:false],
-        // configure settings for the run-war JVM
-        war: [maxMemory: 768, minMemory: 64, debug: false, maxPerm: 256, forkReserve:false],
-        // configure settings for the Console UI JVM
-        console: [maxMemory: 768, minMemory: 64, debug: false, maxPerm: 256]
+    // configure settings for the test-app JVM, uses the daemon by default
+    test: [maxMemory: 768, minMemory: 64, debug: false, maxPerm: 256, daemon:true],
+    // configure settings for the run-app JVM
+    run: [maxMemory: 768, minMemory: 64, debug: false, maxPerm: 256, forkReserve:false],
+    // configure settings for the run-war JVM
+    war: [maxMemory: 768, minMemory: 64, debug: false, maxPerm: 256, forkReserve:false],
+    // configure settings for the Console UI JVM
+    console: [maxMemory: 768, minMemory: 64, debug: false, maxPerm: 256]
 ]
 
-
+grails.project.dependency.resolver = "maven" // or ivy
 grails.project.dependency.resolution = {
     // inherit Grails' default dependencies
     inherits("global") {
         // uncomment to disable ehcache
         // excludes 'ehcache'
     }
-    log "error" // log level of Ivy resolver, either 'error', 'warn', 'info', 'debug' or 'verbose'
+    log "info" // log level of Ivy resolver, either 'error', 'warn', 'info', 'debug' or 'verbose'
     checksums true // Whether to verify checksums on resolve
     legacyResolve false // whether to do a secondary resolve on plugin installation, not advised and here for backwards compatibility
 
@@ -50,8 +49,9 @@ grails.project.dependency.resolution = {
         //mavenRepo "http://repository.jboss.com/maven2/"
     }
 
-    def seleniumVersion = "2.35.0"
+    def seleniumVersion = "2.42.2"
     def gebVersion = "0.9.2"
+    def springVersion = "4.0.5.RELEASE"
 
     dependencies {
 
@@ -66,23 +66,27 @@ grails.project.dependency.resolution = {
         test( "com.github.detro.ghostdriver:phantomjsdriver:1.1.0" ) {
             transitive = false
         }
+        compile "org.springframework:spring-orm:$springVersion"
 
     }
     plugins {
+		 build ":tomcat:7.0.53"
 
-        compile ":scaffolding:2.0.1"
+ 		// plugins for the compile step
+        compile ":scaffolding:2.1.0"
+        compile ':cache:1.1.6'
+        compile ":asset-pipeline:1.8.7"
 
-        build ':tomcat:7.0.52.1'
-		runtime ':hibernate:3.6.10.10'
-        runtime ":jquery:1.9.1"
-        runtime ":resources:1.2.7"
+		runtime ':hibernate:3.6.10.14'
+        runtime ":jquery:1.11.0.2"
+        runtime ":resources:1.2.8"
 
         // Uncomment these (or add new ones) to enable additional resources cap$
         //runtime ":zipped-resources:1.0"
         //runtime ":cached-resources:1.0"
         //runtime ":yui-minify-resources:0.1.4"
 
-        runtime ":database-migration:1.3.8"
+        runtime ":database-migration:1.4.0"
         test ":geb:$gebVersion"
     
   }

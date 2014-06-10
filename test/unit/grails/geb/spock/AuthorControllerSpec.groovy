@@ -9,36 +9,26 @@ import spock.lang.Specification
 class AuthorControllerSpec extends Specification {
 
 
-    def 'index action'() {
 
-        when:
-        controller.index()
-
-        then:
-        response.redirectUrl.endsWith "list"
-    }
-
-
-
-    def 'list action: 1 author'() {
+    def 'index action: 1 author'() {
         setup:
         authorInstance.save()
 
         expect:
-        controller.list() == [authorInstanceList: [authorInstance], authorInstanceTotal: 1]
+        controller.index() == [authorInstanceList: [authorInstance], authorInstanceTotal: 1]
 
         where:
         authorInstance = new Author(firstname: "John", lastname: "Doe")
     }
 
-    def 'list action: 2 authors and max = 1'() {
+    def 'index action: 2 authors and max = 1'() {
         setup:
         fistAuthorInstance.save()
         secondAuthorInstance.save()
         controller.params.max = 1
 
         expect:
-        controller.list() == [authorInstanceList: [fistAuthorInstance], authorInstanceTotal: 2]
+        controller.index() == [authorInstanceList: [fistAuthorInstance], authorInstanceTotal: 2]
 
         where:
         fistAuthorInstance = new Author(firstname: "John1", lastname: "Doe1")
@@ -71,9 +61,11 @@ class AuthorControllerSpec extends Specification {
         controller.params.lastname = "Doe"
 
         when:
+        request.method = 'POST'
         controller.save()
 
         then:
+        response.redirectUrl != null
         response.redirectUrl.endsWith "show/1"
         controller.flash.message != null
 
@@ -85,9 +77,11 @@ class AuthorControllerSpec extends Specification {
         controller.params.lastname = lastname
 
         when:
+        request.method = 'POST'
         controller.save()
 
         then:
+        view != null
         view.endsWith "create"
         model.authorInstance.firstname == firstname
         model.authorInstance.lastname == null
@@ -119,6 +113,7 @@ class AuthorControllerSpec extends Specification {
         controller.show()
 
         then:
+        response.redirectUrl != null
         response.redirectUrl.endsWith"list"
         controller.flash.message != null
 
@@ -146,6 +141,7 @@ class AuthorControllerSpec extends Specification {
         controller.edit()
 
         then:
+        response.redirectUrl != null
         response.redirectUrl.endsWith "list"
         controller.flash.message != null
 
@@ -160,9 +156,11 @@ class AuthorControllerSpec extends Specification {
         controller.params.id = authorInstance.id
 
         when:
+        request.method = 'POST'
         controller.update()
 
         then:
+        response.redirectUrl != null
         response.redirectUrl.endsWith "show/1"
         controller.flash.message != null
 

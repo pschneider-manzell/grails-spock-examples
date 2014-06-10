@@ -3,15 +3,12 @@ package grails.geb.spock
 class AuthorController {
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
-
+    static scaffold = Author
     def index = {
-        redirect(action: "list", params: params)
-    }
-
-    def list = {
         params.max = Math.min(params.max ? params.int('max') : 10, 100)
         [authorInstanceList: Author.list(params), authorInstanceTotal: Author.count()]
     }
+
 
     def create = {
         def authorInstance = new Author()
