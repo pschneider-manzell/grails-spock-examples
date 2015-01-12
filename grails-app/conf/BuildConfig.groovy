@@ -50,7 +50,7 @@ grails.project.dependency.resolution = {
     }
 
     def seleniumVersion = "2.42.2"
-    def gebVersion = "0.9.2"
+    def gebVersion = "0.10.0"
     def springVersion = "4.0.5.RELEASE"
 
     dependencies {
@@ -59,6 +59,7 @@ grails.project.dependency.resolution = {
 
         // runtime 'mysql:mysql-connector-java:5.1.13'
         //test "org.spockframework:spock-grails-support:0.7-groovy-2.0"
+        test "org.grails:grails-datastore-test-support:1.0.2-grails-2.4"
         test "org.gebish:geb-spock:$gebVersion"
         test("org.seleniumhq.selenium:selenium-chrome-driver:$seleniumVersion")
         test("org.seleniumhq.selenium:selenium-firefox-driver:$seleniumVersion")
@@ -70,16 +71,16 @@ grails.project.dependency.resolution = {
 
     }
     plugins {
-		 build ":tomcat:7.0.53"
+		 build ":tomcat:7.0.55"
 
  		// plugins for the compile step
-        compile ":scaffolding:2.1.0"
-        compile ':cache:1.1.6'
-        compile ":asset-pipeline:1.8.7"
+        compile ":scaffolding:2.1.2"
+        compile ':cache:1.1.8'
+        compile ":asset-pipeline:1.9.9"
 
-		runtime ':hibernate:3.6.10.14'
-        runtime ":jquery:1.11.0.2"
-        runtime ":resources:1.2.8"
+		runtime ':hibernate:3.6.10.18'
+        runtime ":jquery:1.11.1"
+        //runtime ":resources:1.2.8"
 
         // Uncomment these (or add new ones) to enable additional resources cap$
         //runtime ":zipped-resources:1.0"
