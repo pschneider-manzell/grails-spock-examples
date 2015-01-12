@@ -8,10 +8,10 @@ You can find detailed descriptions in the [Wiki](https://wiki.github.com/pschnei
 
 Grails project with tests based on Spock.
 
-For examples based on Grails 1.3.7, take a look at branch [1_3_7](https://github.com/pschneider-manzell/grails-spock-examples/tree/grails_1_3_7)
-For examples based on Grails 2.2.0, take a look at branch [2_2_0](https://github.com/pschneider-manzell/grails-spock-examples/tree/grails_2_2_0)
-For examples based on Grails 2.3.7, take a look at branch [2_3_7](https://github.com/pschneider-manzell/grails-spock-examples/tree/grails_2_3_7)
-For examples based on Grails 2.4.0, take a look at branch [2_4_0](https://github.com/pschneider-manzell/grails-spock-examples/tree/grails_2_4_0)
+- For examples based on Grails 1.3.7, take a look at branch [1_3_7](https://github.com/pschneider-manzell/grails-spock-examples/tree/grails_1_3_7)
+- For examples based on Grails 2.2.0, take a look at branch [2_2_0](https://github.com/pschneider-manzell/grails-spock-examples/tree/grails_2_2_0)
+- For examples based on Grails 2.3.7, take a look at branch [2_3_7](https://github.com/pschneider-manzell/grails-spock-examples/tree/grails_2_3_7)
+- For examples based on Grails 2.4.0, take a look at branch [2_4_0](https://github.com/pschneider-manzell/grails-spock-examples/tree/grails_2_4_0)
 
 
 It contains examples for:
